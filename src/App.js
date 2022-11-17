@@ -21,12 +21,13 @@ function App() {
               </p>
               {y.Suggestions.map(x => (
                 <>
-                  <p>{x.excerpt}</p>
+                  <p>Produto: {x.excerpt}</p>
                   <p>R$: {x.prices[0].price} </p>
+                  <p>Relevancia: {x.relevance}</p>
+                  -----------------------------
                 </>
               ))}
             </div>
-            -----------------------------
           </>
         ))}
       </div>
