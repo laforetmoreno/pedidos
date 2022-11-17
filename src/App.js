@@ -1,25 +1,37 @@
 import logo from './logo.svg';
+import { result } from './db';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+  return result.map(x => (
+    <div>
+      <div style={{ background: 'red' }}>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          <strong>Pedido cru:</strong> {x.itemDescription}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      </div>
+      <div>
+        <strong>Pedido normalizado</strong>
+        {x.NormalizedItens.map((y, index) => (
+          <>
+            {' '}
+            <div style={{ background: 'yellow' }}>
+              <p>
+                <strong>Sugestoes para: </strong> {y.descrition}
+              </p>
+              {y.Suggestions.map(x => (
+                <>
+                  <p>{x.excerpt}</p>
+                  <p>R$: {x.prices[0].price} </p>
+                </>
+              ))}
+            </div>
+            -----------------------------
+          </>
+        ))}
+      </div>
     </div>
-  );
+  ));
 }
 
 export default App;
