@@ -1,39 +1,38 @@
 import { result } from './db';
 import './App.css';
 
-const formatDate = date => new Intl.DateTimeFormat('pt-BR').format(date);
+function findItemsByIdPurchase(result) {
+  const itemsByIdPurchase = [];
 
+  result.forEach(item => {
+    itemsByIdPurchase.push({
+      idPurchase: item?.IdPurchase,
+      normalizeItem: item?.Item,
+      suggestionItem: item?.ProductDescription,
+      unity: item?.Unity,
+      quantity: item?.Quantity,
+      CodeOrderB2c: item?.CodeOrderB2c,
+    });
+  });
+
+  return itemsByIdPurchase;
+}
+
+console.log(findItemsByIdPurchase(result));
+
+const compras = findItemsByIdPurchase(result);
+console.log(compras, 'comrpas');
 function App() {
-  return result.map((x, index) => (
+  return findItemsByIdPurchase(result).map((x, index) => (
     <div key={index}>
-      <div style={{ background: 'red' }}>
-        <p>
-          <strong>Pedido cru:</strong> {x?.itemDescription}
-        </p>
-        <p>
-          <strong>Data de criação:</strong> {formatDate(x?.createDate)}
-        </p>
-        <p>
-          <strong>Id consumer:</strong> {x?.idConsumer}
-        </p>
-      </div>
-      <div>
-        <strong>Pedido normalizado</strong>
-        {x.NormalizedItens.map((y, index) => (
-          <div key={index} style={{ background: 'yellow' }}>
-            <p>
-              <strong>Sugestoes para: </strong> {y.descrition}
-            </p>
-            {y.Suggestions.map((x, index) => (
-              <div key={index}>
-                <p>Produto: {x.excerpt}</p>
-                <p>R$: {x.prices[0].price} </p>
-                <p>Relevancia: {x.relevance}</p>
-                -----------------------------
-              </div>
-            ))}
-          </div>
-        ))}
+      <div style={{}}>
+        <p>-------------------------------------------</p>
+        <p>Id: {x.idPurchase}</p>
+        <p>normalizeItem: {x.normalizeItem}</p>
+        <p>suggestionItem: {x.suggestionItem}</p>
+        <p>unity: {x.unity}</p>
+        <p>quantity: {x.quantity}</p>
+        <p>CodeOrderB2c: {x.CodeOrderB2c}</p>
       </div>
     </div>
   ));
